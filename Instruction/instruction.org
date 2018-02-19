@@ -1,0 +1,74 @@
+* Instruction
+
+ So this is the function that sends instructions to the motor controller using the serial library.
+ The serial port used is /dev/ttyACM0 with baud rate 9600.
+
+- Is this where compass is useful?
+Yeah! Use the compass directions instead of passing hardcoded values. Of course, I won't insist on you doing so but I'll pass a warning.
+
+- So why are we not defining this as some kind of function? 
+Because I'd like to be able to reuse commands as much as possible AND because it makes more sense to write down commands and then execute them whenever required instead of creating wrapper functions around one main function.
+
+- Why are we logging this since we'll be using this a lot! 
+The logger is to see what instructions are actually sent to the robot - I'm guessing that we'll need to look at the logs at some point even if we write perfect code.
+In order to avoid filling our logs with trash, I'll add logs to a seperate file.
+
+# I've also written a nice bash script that clears the log instead of us having to delete the file manually - it will probably be incorporated into whatever cleanup scripts the other programmers come up with.
+
+#+NAME: Instruction
+#+BEGIN_SRC python :tangle Instruction.py
+import logging #This is to send logs of instructions sent directly to robot.
+import serial # Serial interface to talk to robot's motor controllers
+
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
+
+# create a file handler
+handler = logging.FileHandler('instruction.log')
+handler.setLevel(logging.INFO)
+logger.addHandler(handler)
+
+class Instruction(object):
+  <<instructionInit>>
+  <<instructionExecute>>
+#+END_SRC
+
+** init
+Init checks if the inputs given are good 
+#+NAME: instructionInit
+#+BEGIN_SRC python
+def __init__(self,direction = None, power = None, time = None):
+  # Serial interface. Gonna be hardcoded for now. I'm sorry, future Vi.
+  self.ser = serial.Serial("/dev/ttyACM0", 9600) 
+
+  #Ensuring that all outputs are non-empty.
+  if direction == None or power == None or time == None:
+    raise ValueError('Instruction is given empty arguments. Please enter valid direction, power and time.') 
+
+  if not (0 <= power <= 100):
+    raise ValueError('Instruction is given an invalid power. Power is a quantity between 0 and 100.')
+  else:
+    self.power = power
+
+  if not (time >= 0):
+    raise ValueError('Instruction is given an invalid time. Time must always be a positive quantity.')
+  else:
+    self.time = time
+#+END_SRC
+
+** execute
+execute sends an instruction the motor controller using a serial port. This might be a janky way of doing things since we're parsing strings on the other end, but it's working for now.
+#+NAME: instructionExecute
+#+BEGIN_SRC python
+def execute(self):
+    
+  def convertToSerialString(direction,
+                            power,
+                            time):
+    return str(direction) + " " + str(power) + " " + str(time)
+  instruction = convertToSerialString(self.direction,
+                                      self.power,
+                                      self.time)
+  logger.info(instruction)
+  self.ser.write(instruction)         #Actually send stuff to the robot.
+#+END_SRC

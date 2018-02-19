@@ -21,13 +21,13 @@ f.update(z)       # Plugs in a numpy array to update the Kalman filter with new 
 #+END_EXAMPLE
 
 
-#+BEGIN_SRC python :tangle filter/sensor.py :noweb yes
+#+BEGIN_SRC python :tangle Sensor.py :noweb yes
 import numpy as np
 import warnings #Used primarily to give warnings about default values
 import logging  #Used to log information that might help with debugging
 
 
-from ...2018.picontroller import coordinate
+import Picontroller.coordinate
 
 
 logging.basicConfig(level=logging.INFO)
@@ -143,7 +143,6 @@ else:
 logger.debug('Offset passed to Sensor object: %s',self.offset)
 #+END_SRC
 
-
 ** Update
 The update function accepts a new measurement and updates its measurement. The parameter variable is used to give importance to either the estimate we have or the new measurement we receive.
 Since our distance sensors are fairly reliable, it wouldn't hurt to make the parameter value close to 1.
@@ -223,7 +222,7 @@ def query(self):
 
 
 
-* Kalman Filter
+* COMMENT Kalman Filter
 This is definitely not a copy paste from the internet. Pinky promise. 
 
 So we have a bunch of linear data with Gaussian noise. Best filter to use is a Kalman filter than gives us accurate-ish values.
@@ -244,7 +243,7 @@ f.update(z)       # Plugs in a numpy array to update the Kalman filter with new 
 #+END_EXAMPLE
 
 
-#+BEGIN_SRC python :tangle filter/KalmanFilter.py :noweb yes
+#+BEGIN_SRC python :tangle KalmanFilter.py :noweb yes
 from filterpy.kalman import KalmanFilter
 class Kalman(object):
 

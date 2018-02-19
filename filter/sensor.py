@@ -3,7 +3,7 @@ import warnings #Used primarily to give warnings about default values
 import logging  #Used to log information that might help with debugging
 
 
-from ...2018.picontroller import coordinate
+import Picontroller.coordinate
 
 
 logging.basicConfig(level=logging.INFO)
