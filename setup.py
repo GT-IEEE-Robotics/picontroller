@@ -7,5 +7,5 @@ setup(name='PiController',
       author='Vi Kumar',
       author_email='grokkingStuff@gmail.com',
       license='',
-      packages=['picontroller'],
+      packages=['Direction','Filter','Instruction','Robot',],
       zip_safe=False)
