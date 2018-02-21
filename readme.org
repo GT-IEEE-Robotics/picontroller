@@ -20,13 +20,13 @@ Just doing normal python library stuff. Consider it unimportant unless someone c
 
 
 #+NAME: test()
-#+BEGIN_SRC sh :results value code :export yes
+#+BEGIN_SRC sh :results value code :exports results
 tree
 #+END_SRC
 
 
 #+RESULTS: test()
-#+BEGIN_SRC sh :export yes
+#+BEGIN_SRC sh :exports results
 .
 ├── Direction
 │   ├── Compass.py
