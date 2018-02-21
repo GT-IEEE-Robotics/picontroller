@@ -20,30 +20,34 @@ Just doing normal python library stuff. Consider it unimportant unless someone c
 
 
 #+NAME: test()
-#+BEGIN_SRC sh
+#+BEGIN_SRC sh :results value code
 tree
 #+END_SRC
 
+
 #+RESULTS: test()
-| 0   |                |                 |       |
-| ├── | Direction      |                 |       |
-| │   | ├──            | Compass.py      |       |
-| │   | ├──            | Coordinate.py   |       |
-| │   | ├──            | __init__.py     |       |
-| │   | └──            | direction.org   |       |
-| ├── | Filter         |                 |       |
-| │   | ├──            | Sensor.py       |       |
-| │   | ├──            | __init__.py     |       |
-| │   | └──            | filter.org      |       |
-| ├── | Instruction    |                 |       |
-| │   | ├──            | Instruction.py  |       |
-| │   | ├──            | __init__.py     |       |
-| │   | └──            | instruction.org |       |
-| ├── | Robot          |                 |       |
-| │   | ├──            | __init__.py     |       |
-| │   | ├──            | robot.org       |       |
-| │   | └──            | robot.py        |       |
-| ├── | __init__.py    |                 |       |
-| └── | controller.org |                 |       |
-|     |                |                 |       |
-| 4   | directories,   | 15              | files |
+#+BEGIN_SRC sh
+.
+├── Direction
+│   ├── Compass.py
+│   ├── Coordinate.py
+│   ├── Direction.py
+│   ├── __init__.py
+│   └── direction.org
+├── Filter
+│   ├── Sensor.py
+│   ├── __init__.py
+│   └── filter.org
+├── Instruction
+│   ├── Instruction.py
+│   ├── __init__.py
+│   └── instruction.org
+├── Robot
+│   ├── __init__.py
+│   ├── robot.org
+│   └── robot.py
+├── __init__.py
+└── readme.org
+
+4 directories, 16 files
+#+END_SRC
